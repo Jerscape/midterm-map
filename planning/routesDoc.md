@@ -19,3 +19,5 @@
 * POST /api/favourite: This route is used to create a new favorite for the current logged-in user, typically based on the data sent in the request body.
 
 * POST /api/maps/create: This route is used to create new maps via the API. Clients can send data to this route to create maps programmatically.
+
+console.loig 
