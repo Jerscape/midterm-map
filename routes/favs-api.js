@@ -8,18 +8,30 @@ router.use(express.json());
 
 
 // GET a list of all favourites of a user
-router.get('/', (req, res) => {
-  favQueries.getFavourites()
+// router.get('/', (req, res) => {
+//   favQueries.getFavourites()
+//     .then((favourites) => {
+//       res.json({ favourites });
+//   })
+
+// });
+
+//GET a favourite map with map id - working!!!
+router.get("/:mapid", (req, res) => {
+
+  favQueries.getFavourites(req.params.mapid)
     .then((favourites) => {
       res.json({ favourites });
-  })
-
+    });
 });
 
-//POST or Add to the list of favourite maps. Currently only fetching mapid
-router.post('/', (req, res) => {
 
-  res.json(req.body)
+//POST a favourite map with mapid
+
+router.post("/:id", (req, res) => {
+  const mapId = req.params.id;
+
+  res.redirect (`/api/favs/${mapId}`)
 
 });
 

@@ -4,14 +4,16 @@ const locQueries = require("../db/queries/locations");
 
 // Read all GET
 router.get("/", (req, res) => {
+
   locQueries.getLocations().then((locations) => {
-    
+
     res.json({ locations });
   });
 });
 
 //GET all locations for a map id
 router.get("/:mapid", (req, res) => {
+
   locQueries
     .getLocsByMapId(req.params.mapid)
 
@@ -36,11 +38,9 @@ router.get("/:mapid", (req, res) => {
 //edit/update map
 //like, you have to retrieve the map but also update it....
 router.post("/:id", (req, res) => {
-  return res.json({ params: req.params, body: req.body });
-  mapQueries;
-  //do not pass req.params or req.body, pass the indvidual strings, pass each param as a string
-  //pull map in question
-  //make an update query
+  const mapId = req.params.id;
+  res.redirect (`/api/locs/${mapId}`)
+
 });
 
 // Read one GET

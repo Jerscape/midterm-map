@@ -11,6 +11,7 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 app.use(cookieParser())
 
+
 app.set('view engine', 'ejs');
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
@@ -39,7 +40,7 @@ const favRoutes = require('./routes/favs');
 const locApiRoutes= require('./routes/locations-api');
 const locRoutes = require('./routes/locations');
 
-
+ 
 // Mount all resource routes
 
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
@@ -62,7 +63,7 @@ app.use('/create', mapsApiRoutes);
 app.get('/', (req, res) => {
   res.render('index');
 });
- 
+
 //moved here on Gary's advice
 app.get('/login/:id', (req, res) => {
 res.cookie('user_id', req.params.id);

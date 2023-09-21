@@ -1,18 +1,21 @@
+
+
 //Client facing script, displays the list of all available maps
 
 // Initializes the google map API and displays the city map in the div container
 function initMap(city_location) {
 
   const map = new google.maps.Map(document.getElementById("locs-container"), {
-    zoom: 8,
-    center: city_location,
+  zoom: 8,
+  center: city_location,
   });
 
   const marker = new google.maps.Marker({
     position: city_location,
     map: map,
   });
-}
+
+};
 
 //--copying from locsjs----------------------------------------------------------------
 // Initializes the google map API and displays the markers/different locations in the city map
@@ -33,6 +36,7 @@ function initMapLoc(mapLocs) {
   });
 
   for (let loc of mapLocs) {
+
     let marker = new google.maps.Marker({
       position: new google.maps.LatLng(loc.lat, loc.lng),
       map: map,
@@ -82,7 +86,7 @@ function toggleBounce(marker) {
 
 
 //function to show map locations for a map
-function showMapLocations(mapId, userId) {
+function showMapLocations(mapId) {
 
   // Make an AJAX (asynchronous) GET request to the '/api/locs' endpoint on the server.
   $.ajax({
@@ -138,23 +142,6 @@ $(() => {
 
   let location = {};
 
-  // Function to handle the "Add to Favorite" button click
-  function handleAddToFavouriteClick(mapId, userId) {
-
-
-    // Make an AJAX (asynchronous) POST request to the '/favs' endpoint on the server.
-    $.ajax({
-      method: "POST",
-      url: "/api/favs",
-      data: { mapId },
-    }).done((response) => {
-
-      console.log("This is my mapid:", response.mapId);
-
-    });
-
-  };
-
 
 
   // Make an AJAX (asynchronous) GET request to the '/api/maps' endpoint on the server.
@@ -183,20 +170,21 @@ $(() => {
       // Append the each map's container to the 'maps-container' div.
       $($mapsContainer).append(eachMapContainer);
 
+      // Define the location for each map
+      location = { lat: map.center_latitude, lng: map.center_longitude };
+
+
+      initMap(location);
 
       // Attach a click event listener to the "Add to Favorite" button for each map
       $(`#fav-button_${map.id}`).on('click', function () {
         const mapId = $(this).data('map-id');
         const userId = $(this).data('user-id');
-        handleAddToFavouriteClick(mapId, userId);
-        renderFavouriteMaps(mapId);
+
+        handleAddToFavouriteClick(map);
+
+        // renderFavouriteMaps(mapId);
       });
-
-      // // Define the location for each map
-      location = { lat: map.center_latitude, lng: map.center_longitude };
-
-
-      initMap(location);
 
     }
 
@@ -209,21 +197,69 @@ $(() => {
 
 
  // Function to render the list of favourite maps
-function renderFavouriteMaps(mapId) {
-  const $favouritesContainer = $("#favourites-container");
+// function renderFavouriteMaps(mapId) {
+//   const $favouritesContainer = $("#favourites-container");
 
-  // Clear the existing favorites
-  $favouritesContainer.empty();
+//   // Clear the existing favorites
+//   $favouritesContainer.empty();
 
-    const favouriteMapContainer = `
-      <div>
-        <h3>${mapId}</h3>
-      </div>`;
-    $favouritesContainer.append(favouriteMapContainer);
+//     const favouriteMapContainer = `
+//       <div>
+//         <h3>${mapId}</h3>
+//       </div>`;
+//     $favouritesContainer.append(favouriteMapContainer);
+
+// };
+
+ // Function to handle the "Add to Favorite" button click
+function handleAddToFavouriteClick(map) {
+  const mapId = map.id;
+
+    //Make an AJAX (asynchronous) POST request to the '/favs' endpoint on the server.
+    $.ajax({
+      method: "GET",
+      url: `/api/favs/${mapId}`,
+      data: { mapId },
+    }).done((response) => {
+
+      console.log("This is my favourite map:", response.favourites);
+      for (const fav of response.favourites) {
+        const mapid = fav.id;
+
+
+        $.ajax({
+          method: "POST",
+          url: `/api/locs/${mapid}`,
+        }).done((response) => {
+
+          console.log("This is my map with it's locations:", response.locations);
+
+          const $favsContainer = $("favourites-container");
+
+          $favsContainer.empty();
+
+
+          const eachFavContainer = `
+            <div>
+              <h3> <a href="#" id="showLoc" onclick="javascript:showMapLocations(${map.id}, ${map.user_id})"> ${map.title} </h3> </a>
+
+            </div>`;
+
+
+          $($favsContainer).append(eachFavContainer);
+
+
+          showMapLocations(mapid);
+
+        });
+      }
+
+
+    });
+
+
 
 };
-
-
 
 
 
