@@ -26,7 +26,7 @@ router.get("/:mapid", (req, res) => {
 });
 
 
-//POST a favourite map with mapid
+//POST a favourite map with mapid - working!!!
 
 router.post("/:id", (req, res) => {
   const mapId = req.params.id;

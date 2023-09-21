@@ -161,9 +161,9 @@ $(() => {
       const eachMapContainer = `
         <div>
           <h3> <a href="#" id="showLoc" onclick="javascript:showMapLocations(${map.id}, ${map.user_id})"> ${map.title} </h3> </a>
-
+          <form action="/api/favs/${map.id}" method="POST">
           <button id="fav-button_${map.id}" data-map-id="${map.id}" data-user-id="${map.user_id}" class="fav-button">Add to Favorite</button>
-
+          </form>
         </div>`;
 
 
@@ -180,8 +180,8 @@ $(() => {
       $(`#fav-button_${map.id}`).on('click', function () {
         const mapId = $(this).data('map-id');
         const userId = $(this).data('user-id');
-
         handleAddToFavouriteClick(map);
+
 
         // renderFavouriteMaps(mapId);
       });
@@ -234,22 +234,29 @@ function handleAddToFavouriteClick(map) {
 
           console.log("This is my map with it's locations:", response.locations);
 
-          const $favsContainer = $("favourites-container");
-
-          $favsContainer.empty();
-
-
-          const eachFavContainer = `
-            <div>
-              <h3> <a href="#" id="showLoc" onclick="javascript:showMapLocations(${map.id}, ${map.user_id})"> ${map.title} </h3> </a>
-
-            </div>`;
+          $.ajax({
+            method: "GET",
+            url: `/favs/${mapid}`,
+          }).done((response) => {
 
 
-          $($favsContainer).append(eachFavContainer);
+            const $favsContainer = $("favourites-container");
+
+            $favsContainer.empty();
 
 
-          showMapLocations(mapid);
+            const eachFavContainer = `
+              <div>
+                <h3> <a href="#" id="showLoc" onclick="javascript:showMapLocations(${mapid})"> ${fav.title} </h3> </a>
+
+              </div>`;
+
+
+            $($favsContainer).append(eachFavContainer);
+          });
+
+
+            showMapLocations(mapid);
 
         });
       }
