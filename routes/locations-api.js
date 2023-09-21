@@ -5,7 +5,7 @@ const locQueries = require("../db/queries/locations");
 // Read all GET
 router.get("/", (req, res) => {
   locQueries.getLocations().then((locations) => {
-    console.log(locations);
+    
     res.json({ locations });
   });
 });
@@ -16,7 +16,6 @@ router.get("/:mapid", (req, res) => {
     .getLocsByMapId(req.params.mapid)
 
     .then((locations) => {
-      console.log("returned locations:", locations); //for testing
       res.json({ locations });
     });
 });

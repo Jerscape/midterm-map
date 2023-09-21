@@ -1,20 +1,22 @@
 //Client facing script, displays the list of all available maps
 
-// Initializes the google map API and displays it in the div container
-function initMap(location, mapId) {
-  console.log("inside initMap", mapId);
+// Initializes the google map API and displays the city map in the div container
+function initMap(city_location) {
+
   const map = new google.maps.Map(document.getElementById("locs-container"), {
     zoom: 8,
-    center: location,
+    center: city_location,
   });
 
   const marker = new google.maps.Marker({
-    position: location,
+    position: city_location,
     map: map,
   });
 }
 
-//--copying from locs.js----------------------------------------------------------------
+//--copying from locsjs----------------------------------------------------------------
+// Initializes the google map API and displays the markers/different locations in the city map
+
 function initMapLoc(mapLocs) {
   // Check if mapLocs is an empty array or doesn't exist
   if (!mapLocs || mapLocs.length === 0) {
@@ -23,7 +25,7 @@ function initMapLoc(mapLocs) {
   }
 
   const fetchMapCenter = mapLocs[0];
-  const mapCenter = fetchMapCenter["center"];
+  const mapCenter = fetchMapCenter.center;
 
   const map = new google.maps.Map(document.getElementById("locs-container"), {
     zoom: 13,
@@ -77,21 +79,28 @@ function toggleBounce(marker) {
   }
 }
 
+
+
 //function to show map locations for a map
-function showMapLocations(mapid) {
+function showMapLocations(mapId, userId) {
+
   // Make an AJAX (asynchronous) GET request to the '/api/locs' endpoint on the server.
   $.ajax({
     method: "GET",
-    url: `/api/locs/${mapid}`,
+    url: `/api/locs/${mapId}`,
     dataType: "json",
   })
     .done((response) => {
+
       // When the AJAX request is successful, this callback function is executed.
 
       let mapLocs = []; //create an array to store multiple locations for a map
-      console.log("response.locations", response.locations);
+
+
+
       // Loop through the array of available locations in the response and add to the map.
       for (const loc of response.locations) {
+
         //Create an object to hold each location's necessary details
         const locationDetails = {
           lat: loc.latitude,
@@ -107,39 +116,118 @@ function showMapLocations(mapid) {
         mapLocs.push(locationDetails);
       }
 
+
       initMapLoc(mapLocs);
+
+
     })
 
     .fail((xhr, status, error) => {
       console.error("Ajax request failed:", status, error);
     });
 }
+
+
+
+// console.log("stringified value:", JSON.stringify(favouriteMaps[mapId]));
+
+
 // This code runs when the DOM is ready
 $(() => {
   const $mapsContainer = $("#maps-container");
-  var location = {};
+
+  let location = {};
+
+  // Function to handle the "Add to Favorite" button click
+  function handleAddToFavouriteClick(mapId, userId) {
+
+
+    // Make an AJAX (asynchronous) POST request to the '/favs' endpoint on the server.
+    $.ajax({
+      method: "POST",
+      url: "/api/favs",
+      data: { mapId },
+    }).done((response) => {
+
+      console.log("This is my mapid:", response.mapId);
+
+    });
+
+  };
+
+
+
   // Make an AJAX (asynchronous) GET request to the '/api/maps' endpoint on the server.
   $.ajax({
     method: "GET",
     url: "/api/maps",
   }).done((response) => {
+
     // When the AJAX request is successful, this callback function is executed.
 
     $mapsContainer.empty(); // Empty the content of the 'maps-container' div.
 
     // Loop through the array of available maps in the response and create a map for each.
-    for (const map of response.maps) {
-      const eachMapContainer = `
 
-        <h3> <a href="#" id="showLoc" onclick="javascript:showMapLocations(${map.id})"> ${map.title} </h3> </a>
-      </div>`;
+    for (const map of response.maps) {
+
+      const eachMapContainer = `
+        <div>
+          <h3> <a href="#" id="showLoc" onclick="javascript:showMapLocations(${map.id}, ${map.user_id})"> ${map.title} </h3> </a>
+
+          <button id="fav-button_${map.id}" data-map-id="${map.id}" data-user-id="${map.user_id}" class="fav-button">Add to Favorite</button>
+
+        </div>`;
+
+
       // Append the each map's container to the 'maps-container' div.
       $($mapsContainer).append(eachMapContainer);
 
+
+      // Attach a click event listener to the "Add to Favorite" button for each map
+      $(`#fav-button_${map.id}`).on('click', function () {
+        const mapId = $(this).data('map-id');
+        const userId = $(this).data('user-id');
+        handleAddToFavouriteClick(mapId, userId);
+        renderFavouriteMaps(mapId);
+      });
+
       // // Define the location for each map
       location = { lat: map.center_latitude, lng: map.center_longitude };
+
+
+      initMap(location);
+
     }
-    // Call the initMap function to initialize the Google Map for this location
-    initMap(location); //temporarily displaying the last map location (until user's currentl location functionality is done)
+
+
+
   });
+
 });
+
+
+
+ // Function to render the list of favourite maps
+function renderFavouriteMaps(mapId) {
+  const $favouritesContainer = $("#favourites-container");
+
+  // Clear the existing favorites
+  $favouritesContainer.empty();
+
+    const favouriteMapContainer = `
+      <div>
+        <h3>${mapId}</h3>
+      </div>`;
+    $favouritesContainer.append(favouriteMapContainer);
+
+};
+
+
+
+
+
+
+
+
+

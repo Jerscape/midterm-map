@@ -3,12 +3,23 @@ const router  = express.Router();
 const favQueries = require('../db/queries/favs');
 
 
+// Middleware for parsing JSON data
+router.use(express.json());
+
+
 // GET a list of all favourites of a user
 router.get('/', (req, res) => {
   favQueries.getFavourites()
     .then((favourites) => {
       res.json({ favourites });
   })
+
+});
+
+//POST or Add to the list of favourite maps. Currently only fetching mapid
+router.post('/', (req, res) => {
+
+  res.json(req.body)
 
 });
 

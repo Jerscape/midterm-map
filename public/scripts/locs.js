@@ -79,7 +79,7 @@ function showMapLocations(mapid) {
       // When the AJAX request is successful, this callback function is executed.
 
       let mapLocs = []; //create an array to store multiple locations for a map
-      console.log("response.locations", response.locations);
+      
       // Loop through the array of available locations in the response and add to the map.
       for (const loc of response.locations) {
         //Create an object to hold each location's necessary details
@@ -93,7 +93,7 @@ function showMapLocations(mapid) {
           clickable: true,
           animation: google.maps.Animation.DROP,
         };
-        // console.log(locationDetails);
+
         mapLocs.push(locationDetails);
       }
 
@@ -104,53 +104,3 @@ function showMapLocations(mapid) {
       console.error("Ajax request failed:", status, error);
     });
 }
-// document.getElementsByTagName("a").addEventListener("click", function (event) {
-//   event.preventDefault(); // Prevent the default behavior of the anchor tag (e.g., navigating to a new page)
-//   showMapLocations(mapid); // Call your function
-// });
-
-// This code runs when the DOM is ready
-// $(() => {
-//   // commented out by mehwish
-//   // console.log("inside ready");
-//   // function showMapLocations(mapid) {
-//   //   const $locsContainer = $("#locs-container");
-//   //   const mapid = window.location.pathname.split("/")[2]; //spliting the url to get the id parameter
-
-//   //   // Make an AJAX (asynchronous) GET request to the '/api/locs' endpoint on the server.
-//   //   $.ajax({
-//   //     method: "GET",
-//   //     url: `/api/locs/${mapid}`,
-//   //     dataType: "json",
-//   //   })
-//   //     .done((response) => {
-//   //       // When the AJAX request is successful, this callback function is executed.
-
-//   //       let mapLocs = []; //create an array to store multiple locations for a map
-//   //       console.log("response.locations", response.locations);
-//   //       // Loop through the array of available locations in the response and add to the map.
-//   //       for (const loc of response.locations) {
-//   //         //Create an object to hold each location's necessary details
-//   //         const locationDetails = {
-//   //           lat: loc.latitude,
-//   //           lng: loc.longitude,
-//   //           title: loc.title,
-//   //           description: loc.description,
-//   //           center: { lat: loc.center_latitude, lng: loc.center_longitude },
-//   //           draggable: true,
-//   //           clickable: true,
-//   //           animation: google.maps.Animation.DROP,
-//   //         };
-//   //         // console.log(locationDetails);
-//   //         mapLocs.push(locationDetails);
-//   //       }
-
-//   //       initMap(mapLocs);
-//   //     })
-
-//   //     .fail((xhr, status, error) => {
-//   //       console.error("Ajax request failed:", status, error);
-//   //     });
-//   // }
-//   showMapLocations(mapid);
-// }); //commented out by mehwish
