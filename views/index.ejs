@@ -77,6 +77,13 @@
         height: 100%;
         width: 100%;
       }
+
+      .nav-links {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+
     </style>
   </head>
 
@@ -86,14 +93,14 @@
         <h1>Wiki Map</h1>
         <div class="nav-links">
           <a href="/maps/create">Create Map</a>
-          <a href="/favs">My Favourites</a>
+          <span style="margin: 10px"> <a href="/favs">My Favourites</a> </span>
 
           <% if (userId) { %>
 
             <form action="/logout" method="POST">
+              <span class="nav-item" style="margin: 10px"> Logged in as: <%= username %> </span>
               <button type="submit" name="Logout">Logout</button>
             </form>
-              <span class="nav-item" style="margin: 10px"> Logged in as: <%= userId %> </span>
 
 
 

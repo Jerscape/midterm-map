@@ -69,8 +69,9 @@ app.use('/create', mapsApiRoutes);
 //Renders the homepage
 app.get('/', (req, res) => {
   const userId = req.cookies.user_id;
+  const username = req.cookies.username;
 
-  res.render("index", { apiKey, userId }); // Pass to EJS template
+  res.render("index", { apiKey, userId, username }); // Pass to EJS template
 });
 
 
@@ -85,6 +86,7 @@ app.get('/login/:id', (req, res) => {
       if (user.length !== 0) {
         // Set a cookie with the user's ID
         res.cookie("user_id", userId);
+        res.cookie("username", user[0].name);
 
         return res.redirect('/');
       } else {
