@@ -22,18 +22,6 @@ router.get("/:mapid", (req, res) => {
     });
 });
 
-//GET /api/pins/:mapid:
-
-// router.get('/api/locs/:mapid', (req,res) => {
-//   console.log("inside locs")
-//   locQueries.getLocsByMapId(mapid)
-//   .then((locations) => {
-//     res.json({locations});
-//   });
-
-// })
-
-// })
 
 //edit/update map
 //like, you have to retrieve the map but also update it....
@@ -43,14 +31,6 @@ router.post("/:id", (req, res) => {
 
 });
 
-// Read one GET
-//get a specific map?
-//Jeremy (based on map id?)
 
-//router.get()
-
-// Update POST
-
-// DELETE POST
 
 module.exports = router;

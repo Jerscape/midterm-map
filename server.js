@@ -44,8 +44,8 @@ const locApiRoutes= require('./routes/locations-api');
 const locRoutes = require('./routes/locations');
 
 
-// Mount all resource routes
- 
+// Mount all resource routes 
+
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/api/pins', pinApiRoutes);
 app.use('/api/maps', mapsApiRoutes);
