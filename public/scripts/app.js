@@ -113,12 +113,14 @@ $("#save-map-button").click(function (event) {
           try {
             const newFavouritesData = await $.post('/api/locs', dataToLocations);
             console.log("new favourites returned data", newFavouritesData);
-            
+
 
           } catch (error) {
             console.log("Error message from post to locations", error);
           }
         }
+
+        return Promise.resolve();
       }
 
       // Usage
