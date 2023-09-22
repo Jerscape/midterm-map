@@ -109,7 +109,7 @@
           mapLocs.push(locationDetails);
         }
 
-        initMapLoc(mapLocs, "locs-container");
+        initMapLoc(mapLocs, container_id);
       })
 
       .fail((xhr, status, error) => {
