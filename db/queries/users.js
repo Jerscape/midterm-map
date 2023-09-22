@@ -1,7 +1,11 @@
 const db = require('../connection');
 
-const getUsers = () => {
-  return db.query('SELECT * FROM users;')
+const getUsers = (userid) => {
+  const queryString = `
+  SELECT * FROM users
+  WHERE users.id = $1;
+  `;
+  return db.query(queryString, [userid])
     .then(data => {
       return data.rows;//jn returning an array of objects
     });

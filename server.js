@@ -1,11 +1,14 @@
 // load .env data into process.env
 require('dotenv').config();
 
+const apiKey = process.env.GOOGLE_MAPS_API_KEY;
+
 // Web server config
 const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+const userQueries = require('./db/queries/users');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -44,7 +47,7 @@ const locApiRoutes= require('./routes/locations-api');
 const locRoutes = require('./routes/locations');
 
 
-// Mount all resource routes 
+// Mount all resource routes
 
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/api/pins', pinApiRoutes);
@@ -63,17 +66,40 @@ app.use('/create', mapsApiRoutes);
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
+//Renders the homepage
 app.get('/', (req, res) => {
-  res.render('index');
+  const userId = req.cookies.user_id;
+
+  res.render("index", { apiKey, userId }); // Pass to EJS template
 });
 
-//moved here on Gary's advice
+
+//User login route
 app.get('/login/:id', (req, res) => {
-res.cookie('user_id', req.params.id);
-return res.redirect("/")
+  const userId = req.params.id;
+
+  // Fetch user data from the database based on userid
+  userQueries
+    .getUsers(userId)
+    .then((user) => {
+      if (user.length !== 0) {
+        // Set a cookie with the user's ID
+        res.cookie("user_id", userId);
+
+        return res.redirect('/');
+      } else {
+        res.status(404).send("User not found");
+      }
+    })
+    .catch((err) => {
+      // Handle any errors that occur during database retrieval
+      console.error(err);
+      res.status(500).send("Internal Server Error");
+    });
 });
 
 
+//User logout route
 app.post('/logout',(req,res) => {
 
 res.clearCookie('user_id');

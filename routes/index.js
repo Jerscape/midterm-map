@@ -4,9 +4,9 @@ const express = require("express");
 const router = express.Router();
 const apiKey = process.env.GOOGLE_MAPS_API_KEY;
 
-router.get("/", (req, res) => {
-  res.render("index", { apiKey }); // Pass the google API key to the maps.ejs template
-});
+// router.get("/", (req, res) => {
+//   res.render("index", { apiKey }); // Pass the google API key to the maps.ejs template
+// });
 
 router.get("/create", (req, res) => {
   // app.get('/login/:id', (req, res) => {

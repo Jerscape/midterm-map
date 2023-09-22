@@ -3,6 +3,7 @@ const router  = express.Router();
 const favQueries = require('../db/queries/favs');
 
 
+
 //GET a list of all favourites of a user
 router.get('/', (req, res) => {
   //(userid)
