@@ -8,29 +8,31 @@ const { getFavourites, addFavourites, checkIfMapIsInFavourites } = require('../d
 
 //Render the favourite page
 router.get('/', (req, res) => {
-  const mapId = req.query.mapid; // Access mapid from the query parameter in post route /:mapid below
-  const userid = req.cookies.user_id;
 
-  getFavourites(userid).then((favourites) => {
-    res.render("favs", { apiKey, favourites, mapId }); // Pass to EJS template
+  const userId = req.cookies.user_id;
+  const username = req.cookies.username;
+
+  getFavourites(userId)
+    .then(() => {
+    res.render("favs", { apiKey, userId, username }); // Pass to EJS template
   });
 });
 
 router.post('/:mapid', (req, res) => {
   const mapid = req.params.mapid;
-  const userid = req.cookies.user_id;
+  const userId = req.cookies.user_id;
 
   // Check if the map is already in the user's favorites
-  checkIfMapIsInFavourites(userid, mapid)
+  checkIfMapIsInFavourites(userId, mapid)
     .then((mapExists) => {
       if (mapExists) {
         res.redirect("/favs"); // Redirect back to the favorites page
       } else {
         // Map doesn't exist in favorites, add it
-        addFavourites(userid, mapid)
+        addFavourites(userId, mapid)
 
-          .then((mapid) => {
-            res.redirect(`/favs?mapid=${mapid}`); // Pass mapid as a query parameter to be accessed in the /favs get route above
+          .then(() => {
+            res.redirect('/favs');
           });
       }
     })

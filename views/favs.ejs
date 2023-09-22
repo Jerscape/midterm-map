@@ -71,6 +71,13 @@
   cursor: pointer;
   }
 
+  .nav-links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+
 
 
 </style>
@@ -83,6 +90,14 @@
       <h1 id="home-link"> Wiki Map </h1>
       <div class="nav-links">
         <a href="/maps/create">Create Map</a>
+        <% if (userId) { %>
+
+          <form action="/logout" method="POST">
+            <span class="nav-item" style="margin: 10px"> Logged in as: <%= username %> </span>
+            <button type="submit" name="Logout">Logout</button>
+          </form>
+
+          <% } %>
       </div>
     </nav>
 
