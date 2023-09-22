@@ -15,12 +15,34 @@ function initMap(location, mapId) {
 };
 
 
+
+// $.ajax({
+          //   method: "GET",
+          //   url: `/favs/${mapid}`,
+          // }).done((response) => {
+
+
+          //   const $favsContainer = $("favourites-container");
+
+          //   $favsContainer.empty();
+
+
+          //   const eachFavContainer = `
+          //     <div>
+          //       <h3> <a href="#" id="showLoc" onclick="javascript:showMapLocations(${mapid})"> ${fav.title} </h3> </a>
+
+          //     </div>`;
+
+
+          //   $($favsContainer).append(eachFavContainer);
+          // });
+
  // This code runs when the DOM is ready
 $(() => {
 
-  const $favsContainer = $('#favs');
+  const $favsContainer = $("favourites-container");
 
-  // Make an AJAX (asynchronous) GET request to the '/api/maps' endpoint on the server.
+  // Make an AJAX (asynchronous) GET request to the '/api/favs/mapid' endpoint on the server.
   $.ajax({
     method: 'GET',
     url: '/api/maps'

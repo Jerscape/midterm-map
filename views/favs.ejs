@@ -16,7 +16,8 @@
   <link rel="stylesheet" href="/styles/layout.css" />
 
   <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/favs.js"></script>
+  <script async src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&callback=initMap"></script>
+  <!-- <script defer src="/scripts/favs.js"></script> -->
   <script defer src="/scripts/maps.js"></script>
 
 
@@ -45,10 +46,16 @@
     padding-right: 40px;
   }
 
-  #map-screen {
+  #fav-map-container{
     display: flex;
-    justify-content: center;
+    width: 70%
+  }
+
+  #fav-screen {
+    display: flex;
+    /* justify-content: center; */
     margin: 50px 0px 50px 40px;
+
   }
 
   h2 {
@@ -76,11 +83,15 @@
 
   </header>
 
-  <div id="map-screen">
+  <div id="fav-screen">
 
     <div id="favourites-container"> </div>
 
-    <iframe src="http://localhost:8080/locs/1" width="70%" height="800"></iframe>
+
+
+    <div id="fav-map-container"></div>
+
+
 
   </div>
 

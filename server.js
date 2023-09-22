@@ -11,6 +11,9 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 app.use(cookieParser())
 
+// Middleware for parsing JSON data
+app.use(express.json());
+
 
 app.set('view engine', 'ejs');
 
@@ -42,8 +45,8 @@ const locRoutes = require('./routes/locations');
 
 
 // Mount all resource routes
-
-// Note: Endpoints that return data (eg. JSON) usually start with `/api` 
+ 
+// Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/api/pins', pinApiRoutes);
 app.use('/api/maps', mapsApiRoutes);
 app.use('/', mapsRoutes);

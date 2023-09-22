@@ -1,14 +1,29 @@
 const db = require('../connection');
 
 
-const getFavourites = (mapid) => {
-  const queryString =
-  `SELECT * FROM maps
-  WHERE maps.id = $1`;
-  return db.query(queryString, [mapid]).then((data) => {
+const getFavourites = (userid) => {
+  const queryString = `
+  SELECT * FROM favourites
+  JOIN maps ON favourites.map_id = maps.id
+  WHERE favourites.user_id = $1;`;
+  return db.query(queryString, [userid])
+    .then((data) => {
     return data.rows;
   });
 };
 
-module.exports = { getFavourites };
+const addFavourites = (userid, mapid) => {
+  const queryString = `
+  INSERT INTO favourites (user_id, map_id)
+  VALUES ($1, $2)
+  RETURNING *;`;
+  return db.query(queryString, [userid, mapid])
+    .then((result) => {
+      return result.rows[0];
+
+  });
+
+}
+
+module.exports = { getFavourites, addFavourites };
 
