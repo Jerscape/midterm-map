@@ -25,5 +25,15 @@ const addFavourites = (userid, mapid) => {
 
 }
 
-module.exports = { getFavourites, addFavourites };
+const checkIfMapIsInFavourites = (userid, mapid) => {
+  const queryString = `
+    SELECT * FROM favourites
+    WHERE user_id = $1 AND map_id = $2;`;
+  return db.query(queryString, [userid, mapid])
+    .then((data) => {
+    return data.rows.length > 0;
+  });
+};
+
+module.exports = { getFavourites, addFavourites, checkIfMapIsInFavourites };
 

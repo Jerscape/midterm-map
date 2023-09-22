@@ -1,7 +1,5 @@
 
-  //Client facing script, displays the list of all available maps
-
-// Initializes the google map API and displays the city map in the div container
+  // Initializes the google map API and displays the city map in the div container
 
   function initMap(city_location, container_id) {
     //const map = new google.maps.Map(document.getElementById("locs-container"), {
@@ -16,7 +14,7 @@
     });
   }
 
-  //--copying from locsjs----------------------------------------------------------------
+  //--copying from locs.js----------------------------------------------------------------
   // Initializes the google map API and displays the markers/different locations in the city map
 
   function initMapLoc(mapLocs, container_id) {
@@ -164,6 +162,7 @@ $(() => {
       method: "GET",
       url: "/api/favs",
     }).done((response) => {
+
       renderFavourites(response.favourites);
 
     });
@@ -196,8 +195,6 @@ $(() => {
       initMap(location, "fav-map-container");
     }
 
-
-    //showMapLocations(favourites.map_id);
   };
 
 
@@ -208,6 +205,7 @@ $(() => {
 
   if (homeLink) {
     homeLink.addEventListener("click", function () {
+      //Navigate to the homepage
       window.location.href = "/";
     });
   }
