@@ -6,8 +6,9 @@ const favQueries = require('../db/queries/favs');
 
 //GET a list of all favourites of a user
 router.get('/', (req, res) => {
-  //(userid)
-  favQueries.getFavourites(1)
+  const userid = req.cookies.user_id;
+  
+  favQueries.getFavourites(userid)
     .then((favourites) => {
       res.json({ favourites });
   })

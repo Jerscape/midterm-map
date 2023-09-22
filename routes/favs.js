@@ -5,11 +5,11 @@ const router = express.Router();
 const apiKey = process.env.GOOGLE_MAPS_API_KEY;
 
 const { getFavourites, addFavourites, checkIfMapIsInFavourites } = require('../db/queries/favs');
-const userid = 1;
 
 //Render the favourite page
 router.get('/', (req, res) => {
   const mapId = req.query.mapid; // Access mapid from the query parameter in post route /:mapid below
+  const userid = req.cookies.user_id;
 
   getFavourites(userid).then((favourites) => {
     res.render("favs", { apiKey, favourites, mapId }); // Pass to EJS template
@@ -18,6 +18,7 @@ router.get('/', (req, res) => {
 
 router.post('/:mapid', (req, res) => {
   const mapid = req.params.mapid;
+  const userid = req.cookies.user_id;
 
   // Check if the map is already in the user's favorites
   checkIfMapIsInFavourites(userid, mapid)
