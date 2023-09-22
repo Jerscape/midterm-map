@@ -60,7 +60,7 @@ app.use('/create', mapsApiRoutes);
 app.get('/', (req, res) => {
   res.render('index', {apiKey: 'AIzaSyBTlH2zUp3AWtcEogHcP0Y28fjxX_2Gv0k'});
 });
-
+ 
 //moved here on Gary's advice
 app.get('/login/:id', (req, res) => {
 res.cookie('user_id', req.params.id);
