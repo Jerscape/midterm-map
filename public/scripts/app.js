@@ -61,6 +61,8 @@ const handleCreateMap = async function(){
     // console.log("Markers list: ", markersList);
 
 
+
+
   }); //end event listenr
 
 }
@@ -158,6 +160,8 @@ $("#save-map-button").click(function (event) {
           console.log("UNsuccessful post request to create route", error);
         });
 
+//reset button
+
 
 
       //create and load object with locations to send to route/query
@@ -183,6 +187,7 @@ $("#save-map-button").click(function (event) {
     });//end outdie catch
 }); //end save map button
 
+
 $(() => {
   //call loadmaps()
   console.log("Start")
@@ -192,25 +197,10 @@ $(() => {
 
   console.log("test");
 
-  //define createmap function
 
-  //rename to rendermaps()
-  // const createMap = function () {
-  //   const $aMap = $(`
-  //   <div>
-  //     This is a map div. Eventually a map will go here.
-  //   </div>`);
-
-  //   return $aMap;
-  // };
-
-  // const renderMaps = function (placeholder) {
-  //   let $aMap = createMap(); //rename it to createMapElement()
-  //   $(".map-container").append($aMap);
-  // };
-
-  // renderMaps(); // call it inside the loadMap()
 });
+
+
 
 
 
