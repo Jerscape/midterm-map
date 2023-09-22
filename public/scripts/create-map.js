@@ -2,7 +2,7 @@
 $(() => {
   //call loadmaps()
   console.log("document ready");
-  const $mapsContainer = $('#maps-container');
+  const $mapsContainer = $('#create-maps-container');
   console.log("logging maps container", $mapsContainer);
 
   //declaring the markers list here seems to be causing an stack error
@@ -11,7 +11,7 @@ $(() => {
   let map;
   async function initMap() {
     const { Map } = await google.maps.importLibrary('maps');
-    map = new Map(document.getElementById("maps-container"), {
+    map = new Map(document.getElementById("create-maps-container"), {
       center: { lat: 51.00, lng: 0.221 },
       zoom: 10,
     });

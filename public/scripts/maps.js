@@ -114,12 +114,28 @@ function showMapLocations(mapId, container_id) {
     });
 }
 
+//Checks if a cookie was set from the server
+function getIsAuthenticated () {
+  return $.ajax({
+    method: "GET",
+    url: "/isLoggedIn",
+  });
+};
+
 // This code runs when the DOM is ready
 $(() => {
   const $mapsContainer = $("#maps-container");
   const $buttonContainer = $("#button-container");
 
   let location = {};
+
+  let isAuthenticated =
+  getIsAuthenticated()
+    .then((data) => {
+    console.log("Is user authenticated?", data);
+    isAuthenticated = data.isAuthenticated;
+  });
+
 
   // Make an AJAX (asynchronous) GET request to the '/api/maps' endpoint on the server.
   $.ajax({
@@ -133,8 +149,6 @@ $(() => {
     // Loop through the array of available maps in the response and create a map for each.
 
     for (const map of response.maps) {
-      $buttonContainer.empty();
-
       const eachMapContainer = `
         <div>
           <h3> <a href="#" id="showLoc-${map.id}" onclick="javascript:showMapLocations(${map.id}, 'locs-container')"> ${map.title} </h3> </a>
@@ -159,7 +173,13 @@ $(() => {
       const $showLocAnchor = $(`#showLoc-${map.id}`);
 
       $showLocAnchor.on("click", function () {
-        $buttonContainer.empty().append(favButton);
+
+        console.log('User is authenticated:', isAuthenticated)
+        
+        //Checks if the user who clicks a map link is authenticated before displaying the add to favourite button
+        if (isAuthenticated) {
+          $buttonContainer.empty().append(favButton);
+        }
       });
     }
   });

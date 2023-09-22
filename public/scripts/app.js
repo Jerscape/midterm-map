@@ -7,7 +7,7 @@
 const showCreateMapForm = function(){
   // alert("showing the form")
   $('.create-map-form').removeClass("hidden")
-  $('#maps-container').removeClass("hidden")
+  $('#create-maps-container').removeClass("hidden")
 
 }
 

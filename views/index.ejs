@@ -93,15 +93,15 @@
       <nav>
         <h1>Wiki Map</h1>
         <div class="nav-links">
-          <a href="/maps/create">Create Map</a>
-          <span style="margin: 10px"> <a href="/favs">My Favourites</a> </span>
+
 
           <% if (userId) { %>
 
             <form action="/logout" method="POST">
-              <span class="nav-item" style="margin: 10px"> Logged in as: <%= username %> </span>
-              <button class="new-map">Create New Map</button>
-              <a href="/favs">My Favourites</a>
+              <span style="margin: 10px"> <button class="new-map">Create New Map</button> </span>
+              <span style="margin: 10px"> <a href="/favs">My Favourites</a> </span>
+              <span style="margin: 10px"> Logged in as: <%= username %> </span>
+              <button type="submit" name="Logout">Logout</button>
             </form>
 
             <% } %>
@@ -119,20 +119,20 @@
       <div id="maps-container"></div>
       <div id="map-display">
 
-        <div id="button-container"></div>
+        <div id="button-container" class="hide-fav-button"></div>
 
         <div id="locs-container"></div>
 
       </div>
 
-    <div id="maps-container" class="hidden"></div>
+    <div id="create-maps-container" class="hidden"></div>
 
     <!-- DO NOT DELETE, THIS JEREMY'S CREATE MAP FORM. WILL ADD TO ABOVE CONTAINERS, ETC. -->
-    <!-- <div class="create-map-form hidden" style="height: 400px">
+    <div class="create-map-form hidden" style="height: 400px">
       <form id="map-title-form">
         <label>Give your map a name</label>
         <input id="input-title"/>
-         <button type="click" class="save-map-button" id="save-map-button">Save Map</button> -->
+         <button type="click" class="save-map-button" id="save-map-button">Save Map</button>
 
       <button class="save-map-button" id="save-map-button">Save Map</button>
     </form>
