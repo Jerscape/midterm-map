@@ -35,6 +35,8 @@
     height: 120px;
     width: 100%;
     position: fixed;
+    top: 0;
+    z-index: 1000;
     padding: 0px 40px;
 
   }
@@ -42,18 +44,20 @@
   #favourites-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     padding-right: 40px;
   }
 
   #fav-map-container{
     display: flex;
-    width: 70%
+    width: 70%;
+    height: 800px;
+    z-index: 999;
   }
 
   #fav-screen {
     display: flex;
-    /* justify-content: center; */
+    justify-content: center;
     margin: 50px 0px 50px 40px;
 
   }
