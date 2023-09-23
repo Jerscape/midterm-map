@@ -33,7 +33,7 @@ const handleCreateMap = async function(){
 
   const { Map } = await google.maps.importLibrary('maps');
   map = new Map(document.getElementById("locs-container"), {
-    center: { lat: 51.00, lng: 0.221 },
+    center: { lat: 51.4769, lng: 0.0 },
     zoom: 10,
   });
 
@@ -67,6 +67,10 @@ const handleCreateMap = async function(){
 
 }
 
+$('#reset').click(function (event, map){
+  console.log("reset button clicked!")
+  // resetMap(map)
+})
 
 $("#save-map-button").click(function (event) {
   event.preventDefault();
