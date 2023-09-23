@@ -132,7 +132,7 @@ $(() => {
   let isAuthenticated =
   getIsAuthenticated()
     .then((data) => {
-    console.log("Is user authenticated?", data);
+
     isAuthenticated = data.isAuthenticated;
   });
 
@@ -174,8 +174,6 @@ $(() => {
 
       $showLocAnchor.on("click", function () {
 
-        console.log('User is authenticated:', isAuthenticated)
-        
         //Checks if the user who clicks a map link is authenticated before displaying the add to favourite button
         if (isAuthenticated) {
           $buttonContainer.empty().append(favButton);

@@ -50,7 +50,8 @@
       #map-screen {
         display: flex;
         justify-content: center;
-        margin: 50px 0px 50px 40px;
+        margin: 50px 50px 50px 40px;
+        height: 900px;
       }
 
       h2{
@@ -91,6 +92,17 @@
       cursor: pointer;
       }
 
+     .create-map-form{
+      height: 50px;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    #all-buttons{
+    display: flex;
+    justify-content: flex-start;
+    }
+
     </style>
   </head>
 
@@ -125,25 +137,25 @@
       <div id="maps-container"></div>
       <div id="map-display">
 
-        <div id="button-container"></div>
+        <div id="all-buttons">
 
-        <div id="locs-container"></div>
+          <div id="create-maps-container" class="hidden"></div>
 
+      <!-- DO NOT DELETE, THIS JEREMY'S CREATE MAP FORM. WILL ADD TO ABOVE CONTAINERS, ETC. -->
+            <div class="create-map-form hidden">
+              <form id="map-title-form">
+                <label>Give your map a name</label>
+                <input id="input-title"/>
+                <button type="click" class="save-map-button" id="save-map-button">Save Map</button>
+<!--
+              <button class="save-map-button" id="save-map-button">Save Map</button> -->
+            </form>
+            <button type="click" id="reset" class="map-reset-button">Reset</button>
+            </div>
+          </div>
+          <span style="margin-bottom: 10px"><div id="button-container"></div></span>
+
+          <div id="locs-container"></div>
       </div>
-
-    <div id="create-maps-container" class="hidden"></div>
-
-    <!-- DO NOT DELETE, THIS JEREMY'S CREATE MAP FORM. WILL ADD TO ABOVE CONTAINERS, ETC. -->
-    <div class="create-map-form hidden" style="height: 400px">
-      <form id="map-title-form">
-        <label>Give your map a name</label>
-        <input id="input-title"/>
-         <button type="click" class="save-map-button" id="save-map-button">Save Map</button>
-
-      <button class="save-map-button" id="save-map-button">Save Map</button>
-    </form>
-    <button type="click" id="reset" class="map-reset-button">Reset</button>
-    </div>
-
   </body>
 </html>

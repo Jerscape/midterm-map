@@ -16,8 +16,6 @@ router.get('/', (req, res) => {
 
 
 
-//GET /api/pins/:mapid:
-
 router.post('/', (req, res) =>{
   // const title = req.body.title;
   console.log("create post route triggered")
@@ -98,17 +96,6 @@ router.put('/edit', (req, res)=>{
 })
 
 
-// Read one GET
-//get a specific map?
-//Jeremy (based on map id?)
-
-//router.get()
-
-
-
-// Update POST
-
-// DELETE POST
 
 
 
