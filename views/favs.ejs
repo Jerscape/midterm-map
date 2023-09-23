@@ -18,6 +18,7 @@
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script async src="https://maps.googleapis.com/maps/api/js?key=<%= apiKey %>&callback=initMap"></script>
   <script defer src="/scripts/maps.js"></script>
+  <script defer src="/scripts/app.js"></script>
 
 
 
@@ -40,6 +41,17 @@
 
   }
 
+  #fav-display{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-evenly;
+    width: 70%;
+    height: 740px;
+    z-index: 999;
+
+  }
+
   #favourites-container {
     display: flex;
     flex-direction: column;
@@ -49,7 +61,7 @@
 
   #fav-map-container{
     display: flex;
-    width: 70%;
+    width: 100%;
     height: 700px;
     z-index: 999;
   }
@@ -57,7 +69,8 @@
   #fav-screen {
     display: flex;
     justify-content: center;
-    margin: 50px 0px 50px 40px;
+    margin: 50px 50px 50px 40px;
+    height: 900px;
 
   }
 
@@ -77,6 +90,17 @@
     align-items: center;
   }
 
+   .create-map-form{
+      height: 50px;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    #all-buttons{
+    display: flex;
+    justify-content: flex-start;
+    }
+
 
 
 
@@ -89,8 +113,10 @@
     <nav>
       <h1 id="home-link"> Wiki Map </h1>
       <div class="nav-links">
-        <span style="margin: 10px" class="new-map"> <a href="/maps_new"> Create New Map </a></span>
+
         <% if (userId) { %>
+
+          <span style="margin: 10px"> <button class="new-map hidden">Create New Map</button> </span>
 
           <form action="/logout" method="POST">
             <span class="nav-item" style="margin: 10px"> Logged in as: <%= username %> </span>
@@ -109,9 +135,30 @@
 
     <div id="favourites-container"> </div>
 
+    <% if (userId) { %>
+      <div id="fav-display">
+      <div id="all-buttons">
 
+          <div id="create-maps-container"></div>
 
-    <div id="fav-map-container"></div>
+          <div class="create-map-form hidden">
+            <form id="map-title-form">
+              <label>Give your map a name</label>
+              <input id="input-title" />
+              <button type="click" class="save-map-button" id="save-map-button">Save Map</button>
+            </form>
+            <button type="click" id="reset" class="map-reset-button">Reset</button>
+            <!--see if moving into form will make this work-->
+          </div>
+        </div>
+        <% } %>
+
+          <span style="margin-bottom: 10px">
+            <div id="button-container"></div>
+          </span> <!--new insert here-->
+
+      <div id="fav-map-container"></div>
+    </div>
 
 
 

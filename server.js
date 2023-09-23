@@ -103,6 +103,7 @@ app.get("/isLoggedIn", (req, res) => {
 //User logout route
 app.post("/logout", (req, res) => {
   res.clearCookie("user_id");
+  res.clearCookie("username");
   return res.redirect("/");
 });
 
